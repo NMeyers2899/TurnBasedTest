@@ -70,6 +70,7 @@ namespace TurnBasedTest
             Console.WriteLine("Name: " + unit.name + "\nHealth: " + unit.health + "\nAttack: " + unit.attack +
                 "\nDefense: " + unit.defense);
             Console.ReadKey(true);
+            Console.Clear();
         }
 
         /// <summary>
