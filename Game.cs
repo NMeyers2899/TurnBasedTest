@@ -23,7 +23,10 @@ namespace TurnBasedTest
         Unit Soldier;
         Unit Ruffian;
 
-        Unit unit;
+        bool gameOver = false;
+
+        Unit unit1;
+        Unit unit2;
 
         /// <summary>
         /// Figures out the damage being dealt in a specific attack.
@@ -85,14 +88,15 @@ namespace TurnBasedTest
             } 
             else if(unitIdentifier == 1)
             {
-                unit = Soldier;
+                unit1 = Soldier;
             }
         }
 
         void Start()
         {
             // Initializes the player's army.   
-            string[] playerArmy;
+            int[] playerFrontLine = new int[5];
+            int[] enemyFrontLine = new int[5];
 
             // Initalizes the stats for a soldier.
             Soldier.name = "Soldier";
@@ -118,7 +122,12 @@ namespace TurnBasedTest
 
         public void Run()
         {
-            
+            Start();
+
+            while (!gameOver)
+            {
+                Update();
+            }
         }
     }
 }
