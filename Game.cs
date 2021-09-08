@@ -14,19 +14,68 @@ namespace TurnBasedTest
         public int health;
         public int attack;
         public int defense;
-        public int identifier;
     }
 
     class Game
     {
-        // Initalizes the names of different units.
+        // Initalizes the stats of different units.
         Unit Soldier;
         Unit Ruffian;
 
         bool gameOver = false;
 
-        Unit unit1;
-        Unit unit2;
+        Unit playerFrontlineUnit1;
+        Unit playerFrontlineUnit2;
+        Unit playerFrontlineUnit3;
+        Unit playerFrontlineUnit4;
+        Unit playerFrontlineUnit5;
+
+        int currentScene = 0;
+
+        /// <summary>
+        /// Gets the user's input on a given topic, giving them two options to choose from.
+        /// </summary>
+        /// <param name="description"> The description of the choice. </param>
+        /// <param name="option1"> The first option. </param>
+        /// <param name="option2"> The second option. </param>
+        /// <param name="option3"> The third option. </param>
+        /// <param name="pauseInvalid"> Pauses the game if the choice was invalid. </param>
+        /// <returns> The number assigned to the made choice if it was valid. </returns>
+        int GetInput(string description, string option1, string option2, string option3, 
+            bool pauseInvalid = false)
+        {
+            // The choice given to the user.
+            Console.Write(description + "\n1. " + option1 + "\n2. " + option2 + "\n3. " + option3 + "\n> ");
+
+            // Gets player input.
+            string input = Console.ReadLine().ToLower();
+            int choice = 0;
+
+            if (input == "1")
+            {
+                choice = 1;
+            }
+            else if (input == "2")
+            {
+                choice = 2;
+            }
+            else if(input == "3")
+            {
+                choice = 3;
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
+
+                if (pauseInvalid)
+                {
+                    Console.ReadKey(true);
+                }
+            }
+
+            // Returns the player's choice.
+            return choice;
+        }
 
         /// <summary>
         /// Figures out the damage being dealt in a specific attack.
@@ -73,23 +122,79 @@ namespace TurnBasedTest
             Console.WriteLine("Name: " + unit.name + "\nHealth: " + unit.health + "\nAttack: " + unit.attack +
                 "\nDefense: " + unit.defense);
             Console.ReadKey(true);
-            Console.Clear();
         }
 
         /// <summary>
         /// Uses an identifier to get a given unit, and sets it equal to that unit's stats.
         /// </summary>
         /// <param name="unitIdentifier"> The indentifier number for a unit. </param>
-        void GetUnit(int unitIdentifier)
+        Unit GetUnit(string unitIdentifier)
         {
-            if(unitIdentifier == 0)
+            Unit unit;
+            unit.name = "None";
+            unit.maxHealth = 0;
+            unit.health = 0;
+            unit.attack = 0;
+            unit.defense = 0;
+
+            switch (unitIdentifier)
             {
-                Console.WriteLine("No unit identification.");
-            } 
-            else if(unitIdentifier == 1)
-            {
-                unit1 = Soldier;
+                case "soldier":
+                    unit = Soldier;
+                    break;
+                case "ruffian":
+                    unit = Ruffian;
+                    break;
             }
+
+            return unit;
+        }
+
+        void DisplayStartMenu()
+        {
+            int choice = GetInput("Welcome to the Turn Based Test!", "Start Battle,", "Change Army", "Quit");
+
+            switch (choice)
+            {
+                case 1:
+                    currentScene = 1;
+                    break;
+                case 2:
+                    currentScene = 2;
+                    break;
+                case 3:
+                    gameOver = true;
+                    break;
+            }
+        }
+
+        void ChangePlayerArmy()
+        {
+            int choice = GetInput("What would you like to do?", "Switch Unit", "Check Army Stats", "Back");
+
+            switch (choice)
+            {
+                case 1:
+                    break;
+                case 2:
+                    DisplayUnitStats(playerFrontlineUnit1);
+                    DisplayUnitStats(playerFrontlineUnit2);
+                    DisplayUnitStats(playerFrontlineUnit3);
+                    DisplayUnitStats(playerFrontlineUnit4);
+                    DisplayUnitStats(playerFrontlineUnit5);
+                    Console.Clear();
+                    break;
+                case 3:
+                    currentScene = 0;
+                    Console.Clear();
+                    break;
+            }
+
+        }
+
+        void ChangeUnit(Unit unit)
+        {
+            GetUnit(unit.name);
         }
 
         void Start()
@@ -98,13 +203,15 @@ namespace TurnBasedTest
             int[] playerFrontLine = new int[5];
             int[] enemyFrontLine = new int[5];
 
+            // Initializes the unit list for future use.
+            Unit[] unitList = new Unit[] { Soldier, Ruffian };
+
             // Initalizes the stats for a soldier.
             Soldier.name = "Soldier";
             Soldier.maxHealth = 10;
             Soldier.health = 10;
             Soldier.attack = 8;
             Soldier.defense = 3;
-            Soldier.identifier = 1;
 
             // Initializes the stats for a ruffian.
             Ruffian.name = "Ruffian";
@@ -112,12 +219,26 @@ namespace TurnBasedTest
             Ruffian.health = 12;
             Ruffian.attack = 10;
             Ruffian.defense = 2;
-            Ruffian.identifier = 2;
         }
 
         void Update()
         {
-            
+            UpdateScene();
+        }
+
+        void UpdateScene()
+        {
+            switch (currentScene)
+            {
+                case 0:
+                    DisplayStartMenu();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    ChangePlayerArmy();
+                    break;
+            }
         }
 
         public void Run()
