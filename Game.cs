@@ -77,6 +77,18 @@ namespace TurnBasedTest
             return choice;
         }
 
+        string GetUnitChange(bool pauseInvalid = false)
+        {
+            string choice = "None";
+
+            Console.Write("Which position would you like to change? \n1. " + playerFrontlineUnit1.name +
+                "\n2. " + playerFrontlineUnit2.name + "\n3. " + playerFrontlineUnit3.name + "\n4. " +
+                playerFrontlineUnit4.name + "\n5. " + playerFrontlineUnit5.name + "\n> ");
+            Console.ReadKey(true);
+            Console.Clear();
+            return choice;
+        }
+
         /// <summary>
         /// Figures out the damage being dealt in a specific attack.
         /// </summary>
@@ -120,8 +132,7 @@ namespace TurnBasedTest
         void DisplayUnitStats(Unit unit)
         {
             Console.WriteLine("Name: " + unit.name + "\nHealth: " + unit.health + "\nAttack: " + unit.attack +
-                "\nDefense: " + unit.defense);
-            Console.ReadKey(true);
+                "\nDefense: " + unit.defense + "\n");
         }
 
         /// <summary>
@@ -150,9 +161,13 @@ namespace TurnBasedTest
             return unit;
         }
 
+        /// <summary>
+        /// Displays the start menu from which the player can start a battle, change their army, or quit 
+        /// the game.
+        /// </summary>
         void DisplayStartMenu()
         {
-            int choice = GetInput("Welcome to the Turn Based Test!", "Start Battle,", "Change Army", "Quit");
+            int choice = GetInput("Welcome to the Turn Based Test!", "Start Battle", "Change Army", "Quit");
 
             switch (choice)
             {
@@ -168,6 +183,10 @@ namespace TurnBasedTest
             }
         }
 
+        /// <summary>
+        /// This will display the menu that allows the player to check on their army, and change the 
+        /// units in it.
+        /// </summary>
         void ChangePlayerArmy()
         {
             int choice = GetInput("What would you like to do?", "Switch Unit", "Check Army Stats", "Back");
@@ -175,13 +194,16 @@ namespace TurnBasedTest
             switch (choice)
             {
                 case 1:
+                    GetUnitChange();
                     break;
                 case 2:
+                    Console.Clear();
                     DisplayUnitStats(playerFrontlineUnit1);
                     DisplayUnitStats(playerFrontlineUnit2);
                     DisplayUnitStats(playerFrontlineUnit3);
                     DisplayUnitStats(playerFrontlineUnit4);
                     DisplayUnitStats(playerFrontlineUnit5);
+                    Console.ReadKey(true);
                     Console.Clear();
                     break;
                 case 3:
@@ -192,11 +214,18 @@ namespace TurnBasedTest
 
         }
 
+        /// <summary>
+        /// Allows the player to change a single unit in their army.
+        /// </summary>
+        /// <param name="unit"> The unit that will be changed. </param>
         void ChangeUnit(Unit unit)
         {
-            GetUnit(unit.name);
+           
         }
 
+        /// <summary>
+        /// Initializes everything that should be initalized before the start of the game.
+        /// </summary>
         void Start()
         {
             // Initializes the player's army.   
@@ -221,11 +250,18 @@ namespace TurnBasedTest
             Ruffian.defense = 2;
         }
 
+
+        /// <summary>
+        /// Changes the information of the game.
+        /// </summary>
         void Update()
         {
             UpdateScene();
         }
 
+        /// <summary>
+        /// Changes the scenes in the game.
+        /// </summary>
         void UpdateScene()
         {
             switch (currentScene)
