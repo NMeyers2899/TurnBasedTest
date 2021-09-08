@@ -10,6 +10,7 @@ namespace TurnBasedTest
     struct Unit
     {
         public string name;
+        public int maxHealth;
         public int health;
         public int attack;
         public int defense;
@@ -60,6 +61,16 @@ namespace TurnBasedTest
             Console.WriteLine(unit2.name + " takes " + damageTaken + " damage!");
         }
 
+        /// <summary>
+        /// Displays a unit's stats to the console.
+        /// </summary>
+        /// <param name="unit"> The unit whose stats will be displayed. </param>
+        void DisplayUnitStats(Unit unit)
+        {
+            Console.WriteLine("Name: " + unit.name + "\nHealth: " + unit.health + "\nAttack: " + unit.attack +
+                "\nDefense: " + unit.defense);
+            Console.ReadKey(true);
+        }
 
         /// <summary>
         /// Uses an identifier to get a given unit, and sets it equal to that unit's stats.
@@ -84,6 +95,7 @@ namespace TurnBasedTest
 
             // Initalizes the stats for a soldier.
             Soldier.name = "Soldier";
+            Soldier.maxHealth = 10;
             Soldier.health = 10;
             Soldier.attack = 8;
             Soldier.defense = 3;
@@ -91,7 +103,8 @@ namespace TurnBasedTest
 
             // Initializes the stats for a ruffian.
             Ruffian.name = "Ruffian";
-            Ruffian.health = 15;
+            Ruffian.maxHealth = 12;
+            Ruffian.health = 12;
             Ruffian.attack = 10;
             Ruffian.defense = 2;
             Ruffian.identifier = 2;
