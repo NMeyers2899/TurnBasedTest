@@ -30,7 +30,20 @@ namespace TurnBasedTest
         Unit playerFrontlineUnit4;
         Unit playerFrontlineUnit5;
 
+        Unit[] unitList;
+
         int currentScene = 0;
+
+        /// <summary>
+        /// Displays the current list of unlocked units.
+        /// </summary>
+        void DisplayUnitList()
+        {
+            for (int i = 0; i < unitList.Length; i++)
+            {
+                Console.WriteLine(unitList[i].name);
+            }
+        }
 
         /// <summary>
         /// Gets the user's input on a given topic, giving them two options to choose from.
@@ -77,16 +90,45 @@ namespace TurnBasedTest
             return choice;
         }
 
-        string GetUnitChange(bool pauseInvalid = false)
+        /// <summary>
+        /// This method will allow the user to choose a unit to swap and what to swap that unit into.
+        /// </summary>
+        /// <param name="pauseInvalid"></param>
+        void GetUnitChange(bool pauseInvalid = false)
         {
-            string choice = "None";
+            string unitSwap = "None";
 
             Console.Write("Which position would you like to change? \n1. " + playerFrontlineUnit1.name +
                 "\n2. " + playerFrontlineUnit2.name + "\n3. " + playerFrontlineUnit3.name + "\n4. " +
                 playerFrontlineUnit4.name + "\n5. " + playerFrontlineUnit5.name + "\n> ");
+            // Gets player input.
+
+            string input = Console.ReadLine().ToLower();
+            int choice = 0;
+
+            if (input == "1")
+            {
+                choice = 1;
+            }
+            else if (input == "2")
+            {
+                choice = 2;
+            }
+            else if (input == "3")
+            {
+                choice = 3;
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
+
+                if (pauseInvalid)
+                {
+                    Console.ReadKey(true);
+                }
+            }
             Console.ReadKey(true);
             Console.Clear();
-            return choice;
         }
 
         /// <summary>
@@ -187,9 +229,9 @@ namespace TurnBasedTest
         /// This will display the menu that allows the player to check on their army, and change the 
         /// units in it.
         /// </summary>
-        void ChangePlayerArmy()
+        void ChangePlayerSquad()
         {
-            int choice = GetInput("What would you like to do?", "Switch Unit", "Check Army Stats", "Back");
+            int choice = GetInput("What would you like to do?", "Switch Unit", "Check Squad Stats", "Back");
 
             switch (choice)
             {
@@ -272,7 +314,7 @@ namespace TurnBasedTest
                 case 1:
                     break;
                 case 2:
-                    ChangePlayerArmy();
+                    ChangePlayerSquad();
                     break;
             }
         }
