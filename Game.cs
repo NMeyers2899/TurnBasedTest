@@ -30,11 +30,21 @@ namespace TurnBasedTest
 
         bool gameOver = false;
 
-        Unit playerFrontlineUnit1;
-        Unit playerFrontlineUnit2;
-        Unit playerFrontlineUnit3;
-        Unit playerFrontlineUnit4;
-        Unit playerFrontlineUnit5;
+        Unit playerFrontLineUnit1;
+        Unit playerFrontLineUnit2;
+        Unit playerFrontLineUnit3;
+        Unit playerFrontLineUnit4;
+        Unit playerFrontLineUnit5;
+        Unit playerMidLineUnit1;
+        Unit playerMidLineUnit2;
+        Unit playerMidLineUnit3;
+        Unit playerMidLineUnit4;
+        Unit playerMidLineUnit5;
+        Unit playerBackLineUnit1;
+        Unit playerBackLineUnit2;
+        Unit playerBackLineUnit3;
+        Unit playerBackLineUnit4;
+        Unit playerBackLineUnit5;
 
         Unit[] unitList;
 
@@ -109,9 +119,9 @@ namespace TurnBasedTest
             unitSwap.attack = 0;
             unitSwap.defense = 0;
 
-            Console.Write("Which position would you like to change? \n1. " + playerFrontlineUnit1.name +
-                "\n2. " + playerFrontlineUnit2.name + "\n3. " + playerFrontlineUnit3.name + "\n4. " +
-                playerFrontlineUnit4.name + "\n5. " + playerFrontlineUnit5.name + "\n> ");
+            Console.Write("Which position would you like to change? \n1. " + playerFrontLineUnit1.name +
+                "\n2. " + playerFrontLineUnit2.name + "\n3. " + playerFrontLineUnit3.name + "\n4. " +
+                playerFrontLineUnit4.name + "\n5. " + playerFrontLineUnit5.name + "\n> ");
             // Gets player input.
 
             string input = Console.ReadLine().ToLower();
@@ -121,31 +131,31 @@ namespace TurnBasedTest
             {
                 ChangeUnit(ref unitSwap);
                 choice = 1;
-                playerFrontlineUnit1 = unitSwap;
+                playerFrontLineUnit1 = unitSwap;
             }
             else if (input == "2")
             {
                 ChangeUnit(ref unitSwap);
                 choice = 2;
-                playerFrontlineUnit2 = unitSwap;
+                playerFrontLineUnit2 = unitSwap;
             }
             else if (input == "3")
             {
                 ChangeUnit(ref unitSwap);
                 choice = 3;
-                playerFrontlineUnit3 = unitSwap;
+                playerFrontLineUnit3 = unitSwap;
             }
             else if (input == "4")
             {
                 ChangeUnit(ref unitSwap);
                 choice = 4;
-                playerFrontlineUnit4 = unitSwap;
+                playerFrontLineUnit4 = unitSwap;
             }
             else if (input == "5")
             {
                 ChangeUnit(ref unitSwap);
                 choice = 5;
-                playerFrontlineUnit5 = unitSwap;
+                playerFrontLineUnit5 = unitSwap;
             }
             else
             {
@@ -287,11 +297,11 @@ namespace TurnBasedTest
                     break;
                 case 2:
                     Console.Clear();
-                    DisplayUnitStats(playerFrontlineUnit1);
-                    DisplayUnitStats(playerFrontlineUnit2);
-                    DisplayUnitStats(playerFrontlineUnit3);
-                    DisplayUnitStats(playerFrontlineUnit4);
-                    DisplayUnitStats(playerFrontlineUnit5);
+                    DisplayUnitStats(playerFrontLineUnit1);
+                    DisplayUnitStats(playerFrontLineUnit2);
+                    DisplayUnitStats(playerFrontLineUnit3);
+                    DisplayUnitStats(playerFrontLineUnit4);
+                    DisplayUnitStats(playerFrontLineUnit5);
                     Console.ReadKey(true);
                     Console.Clear();
                     break;
@@ -339,14 +349,14 @@ namespace TurnBasedTest
             Soldier.maxHealth = 10;
             Soldier.health = 10;
             Soldier.attack = 8;
-            Soldier.defense = 3;
+            Soldier.defense = 4;
 
             // Initializes the stats for a ruffian.
             Ruffian.name = "Ruffian";
             Ruffian.maxHealth = 12;
             Ruffian.health = 12;
             Ruffian.attack = 10;
-            Ruffian.defense = 2;
+            Ruffian.defense = 3;
 
             // Initalizes the stats for an archer.
             Archer.name = "Archer";
