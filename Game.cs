@@ -30,6 +30,7 @@ namespace TurnBasedTest
 
         bool gameOver = false;
 
+        // Initializes the player's army.
         Unit playerFrontLineUnit1;
         Unit playerFrontLineUnit2;
         Unit playerFrontLineUnit3;
@@ -45,6 +46,13 @@ namespace TurnBasedTest
         Unit playerBackLineUnit3;
         Unit playerBackLineUnit4;
         Unit playerBackLineUnit5;
+        
+        // Initalizes the enemy's army.
+        Unit enemyFrontLineUnit1;
+        Unit enemyFrontLineUnit2;
+        Unit enemyFrontLineUnit3;
+        Unit enemyFrontLineUnit4;
+        Unit enemyFrontLineUnit5;
 
         Unit[] unitList;
 
@@ -130,31 +138,26 @@ namespace TurnBasedTest
             if (input == "1")
             {
                 ChangeUnit(ref unitSwap);
-                choice = 1;
                 playerFrontLineUnit1 = unitSwap;
             }
             else if (input == "2")
             {
                 ChangeUnit(ref unitSwap);
-                choice = 2;
                 playerFrontLineUnit2 = unitSwap;
             }
             else if (input == "3")
             {
                 ChangeUnit(ref unitSwap);
-                choice = 3;
                 playerFrontLineUnit3 = unitSwap;
             }
             else if (input == "4")
             {
                 ChangeUnit(ref unitSwap);
-                choice = 4;
                 playerFrontLineUnit4 = unitSwap;
             }
             else if (input == "5")
             {
                 ChangeUnit(ref unitSwap);
-                choice = 5;
                 playerFrontLineUnit5 = unitSwap;
             }
             else
