@@ -21,6 +21,12 @@ namespace TurnBasedTest
         // Initalizes the stats of different units.
         Unit Soldier;
         Unit Ruffian;
+        Unit Commander;
+        Unit Archer;
+        Unit Cleric;
+        Unit Assassin;
+        Unit VoidMage;
+        Unit Reaver;
 
         bool gameOver = false;
 
@@ -39,9 +45,9 @@ namespace TurnBasedTest
         /// </summary>
         void DisplayUnitList()
         {
-            for (int i = 0; i < unitList.Length; i++)
+            foreach(Unit unitName in unitList)
             {
-                Console.WriteLine(unitList[i].name);
+                Console.WriteLine(unitName.name);
             }
         }
 
@@ -93,10 +99,15 @@ namespace TurnBasedTest
         /// <summary>
         /// This method will allow the user to choose a unit to swap and what to swap that unit into.
         /// </summary>
-        /// <param name="pauseInvalid"></param>
+        /// <param name="pauseInvalid"> Pauses the game if the choice was invalid. </param>
         void GetUnitChange(bool pauseInvalid = false)
         {
-            string unitSwap = "None";
+            Unit unitSwap;
+            unitSwap.name = "None";
+            unitSwap.maxHealth = 0;
+            unitSwap.health = 0;
+            unitSwap.attack = 0;
+            unitSwap.defense = 0;
 
             Console.Write("Which position would you like to change? \n1. " + playerFrontlineUnit1.name +
                 "\n2. " + playerFrontlineUnit2.name + "\n3. " + playerFrontlineUnit3.name + "\n4. " +
@@ -108,15 +119,33 @@ namespace TurnBasedTest
 
             if (input == "1")
             {
+                ChangeUnit(ref unitSwap);
                 choice = 1;
+                playerFrontlineUnit1 = unitSwap;
             }
             else if (input == "2")
             {
+                ChangeUnit(ref unitSwap);
                 choice = 2;
+                playerFrontlineUnit2 = unitSwap;
             }
             else if (input == "3")
             {
+                ChangeUnit(ref unitSwap);
                 choice = 3;
+                playerFrontlineUnit3 = unitSwap;
+            }
+            else if (input == "4")
+            {
+                ChangeUnit(ref unitSwap);
+                choice = 4;
+                playerFrontlineUnit4 = unitSwap;
+            }
+            else if (input == "5")
+            {
+                ChangeUnit(ref unitSwap);
+                choice = 5;
+                playerFrontlineUnit5 = unitSwap;
             }
             else
             {
@@ -155,7 +184,7 @@ namespace TurnBasedTest
         /// Sends two units against each other to fight, dealing damage to the second.
         /// </summary>
         /// <param name="unit1"> The attacker, who will deal damage. </param>
-        /// <param name="unit2"> The target, who will take the damage being dealt.. </param>
+        /// <param name="unit2"> The target, who will take the damage being dealt. </param>
         void Combat(ref Unit unit1, ref Unit unit2)
         {
             // Calculates the damage that will be dealt.
@@ -195,8 +224,25 @@ namespace TurnBasedTest
                 case "soldier":
                     unit = Soldier;
                     break;
+
                 case "ruffian":
                     unit = Ruffian;
+                    break;
+
+                case "archer":
+                    unit = Archer;
+                    break;
+
+                case "cleric":
+                    unit = Cleric;
+                    break;
+
+                case "assassin":
+                    unit = Assassin;
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid Input");
                     break;
             }
 
@@ -209,7 +255,7 @@ namespace TurnBasedTest
         /// </summary>
         void DisplayStartMenu()
         {
-            int choice = GetInput("Welcome to the Turn Based Test!", "Start Battle", "Change Army", "Quit");
+            int choice = GetInput("Welcome to the Turn Based Test!", "Start Battle", "Change Squad", "Quit");
 
             switch (choice)
             {
@@ -236,6 +282,7 @@ namespace TurnBasedTest
             switch (choice)
             {
                 case 1:
+                    Console.Clear();
                     GetUnitChange();
                     break;
                 case 2:
@@ -250,7 +297,6 @@ namespace TurnBasedTest
                     break;
                 case 3:
                     currentScene = 0;
-                    Console.Clear();
                     break;
             }
 
@@ -260,9 +306,16 @@ namespace TurnBasedTest
         /// Allows the player to change a single unit in their army.
         /// </summary>
         /// <param name="unit"> The unit that will be changed. </param>
-        void ChangeUnit(Unit unit)
+        void ChangeUnit(ref Unit unit)
         {
-           
+            string input = "None";
+
+            Console.Clear();
+
+            DisplayUnitList();
+            Console.Write("Which unit do you want to swap into this position? \n>");
+            input = Console.ReadLine().ToLower();
+            unit = GetUnit(input);
         }
 
         /// <summary>
@@ -274,8 +327,12 @@ namespace TurnBasedTest
             int[] playerFrontLine = new int[5];
             int[] enemyFrontLine = new int[5];
 
-            // Initializes the unit list for future use.
-            Unit[] unitList = new Unit[] { Soldier, Ruffian };
+            // Initializes the stats for the Commander.
+            Commander.name = "Ivan";
+            Commander.maxHealth = 25;
+            Commander.health = 25;
+            Commander.attack = 10;
+            Commander.defense = 6;
 
             // Initalizes the stats for a soldier.
             Soldier.name = "Soldier";
@@ -290,6 +347,29 @@ namespace TurnBasedTest
             Ruffian.health = 12;
             Ruffian.attack = 10;
             Ruffian.defense = 2;
+
+            // Initalizes the stats for an archer.
+            Archer.name = "Archer";
+            Archer.maxHealth = 8;
+            Archer.health = 8;
+            Archer.attack = 10;
+            Archer.defense = 2;
+
+            // Initalizes the stats for a cleric.
+            Cleric.name = "Cleric";
+            Cleric.maxHealth = 8;
+            Cleric.health = 8;
+            Cleric.attack = 5;
+            Cleric.defense = 2;
+
+            // Initalizes the stats for an assassin.
+            Assassin.name = "Assassin";
+            Assassin.maxHealth = 8;
+            Assassin.health = 8;
+            Assassin.attack = 10;
+            Assassin.defense = 2;
+
+            unitList = new Unit[] { Soldier, Ruffian, Archer, Cleric, Assassin };
         }
 
 
@@ -298,6 +378,7 @@ namespace TurnBasedTest
         /// </summary>
         void Update()
         {
+            Console.Clear();
             UpdateScene();
         }
 
