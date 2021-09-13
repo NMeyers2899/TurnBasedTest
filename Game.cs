@@ -23,7 +23,7 @@ namespace TurnBasedTest
         bool commanderInArmy = false;
 
         // Initalizes the stats of different units.
-        Unit Commander;
+        Unit Ivan;
         Unit Soldier;
         Unit Ruffian;
         Unit Archer;
@@ -152,6 +152,8 @@ namespace TurnBasedTest
             if (playerDeploy <= 0)
             {
                 Console.WriteLine("Not enough deploy");
+                Console.ReadKey(true);
+                Console.Clear();
                 return false;
             }
             else
@@ -166,9 +168,11 @@ namespace TurnBasedTest
                     playerDeploy += unit1.deployCost - unit2.deployCost;
                     return true;
                 }
+                else
+                {
+                    return true;
+                }
             }
-
-            return false;
         }
 
         /// <summary>
@@ -263,6 +267,7 @@ namespace TurnBasedTest
                             break;
                     }
                     break;
+
                 case 2:
                     Console.WriteLine("Available Deploy: " + playerDeploy);
                     Console.Write("Which position would you like to change? \n1. " + playerMidLineUnit1.name +
@@ -320,6 +325,7 @@ namespace TurnBasedTest
                             break;
                     }
                     break;
+
                 case 3:
                     Console.WriteLine("Available Deploy: " + playerDeploy);
                     Console.Write("Which position would you like to change? \n1. " + playerBackLineUnit1.name +
@@ -576,12 +582,12 @@ namespace TurnBasedTest
             playerBackLineUnit4, playerBackLineUnit5};
 
             // Initializes the stats for the Commander.
-            Commander.name = "Ivan";
-            Commander.maxHealth = 25;
-            Commander.health = 25;
-            Commander.attack = 10;
-            Commander.defense = 6;
-            Commander.deployCost = 0;
+            Ivan.name = "Ivan";
+            Ivan.maxHealth = 25;
+            Ivan.health = 25;
+            Ivan.attack = 10;
+            Ivan.defense = 6;
+            Ivan.deployCost = 0;
 
             // Initalizes the stats for a soldier.
             Soldier.name = "Soldier";
@@ -623,7 +629,7 @@ namespace TurnBasedTest
             Shadowstepper.defense = 2;
             Shadowstepper.deployCost = 3;
 
-            unitList = new Unit[] { Commander, Soldier, Ruffian, Archer, Cleric, Shadowstepper };
+            unitList = new Unit[] { Ivan, Soldier, Ruffian, Archer, Cleric, Shadowstepper };
         }
 
 
@@ -634,6 +640,11 @@ namespace TurnBasedTest
         {
             Console.Clear();
             UpdateScene();
+        }
+
+        void End()
+        {
+            Console.WriteLine("Goodbye!");
         }
 
         /// <summary>
@@ -662,6 +673,8 @@ namespace TurnBasedTest
             {
                 Update();
             }
+
+            End();
         }
     }
 }
