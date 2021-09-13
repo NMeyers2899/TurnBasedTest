@@ -14,10 +14,14 @@ namespace TurnBasedTest
         public int health;
         public int attack;
         public int defense;
+        public int deployCost;
     }
 
     class Game
     {
+        int playerDeploy = 16;
+        bool commanderInArmy = false;
+
         // Initalizes the stats of different units.
         Unit Commander;
         Unit Soldier;
@@ -25,6 +29,9 @@ namespace TurnBasedTest
         Unit Archer;
         Unit Cleric;
         Unit Shadowstepper;
+        Unit Lancer;
+        Unit Necromancer;
+        Unit Skeleton;
         Unit Abomination;
         Unit Shapeshifter;
         Unit VoidMage;
@@ -33,21 +40,26 @@ namespace TurnBasedTest
         bool gameOver = false;
 
         // Initializes the player's army.
+        Unit[] playerSquad;
+
         Unit playerFrontLineUnit1;
         Unit playerFrontLineUnit2;
         Unit playerFrontLineUnit3;
         Unit playerFrontLineUnit4;
         Unit playerFrontLineUnit5;
+
         Unit playerMidLineUnit1;
         Unit playerMidLineUnit2;
         Unit playerMidLineUnit3;
         Unit playerMidLineUnit4;
         Unit playerMidLineUnit5;
+
         Unit playerBackLineUnit1;
         Unit playerBackLineUnit2;
         Unit playerBackLineUnit3;
         Unit playerBackLineUnit4;
         Unit playerBackLineUnit5;
+
         
         // Initalizes the enemy's army.
         Unit enemyFrontLineUnit1;
@@ -55,6 +67,18 @@ namespace TurnBasedTest
         Unit enemyFrontLineUnit3;
         Unit enemyFrontLineUnit4;
         Unit enemyFrontLineUnit5;
+
+        Unit enemyMidLineUnit1;
+        Unit enemyMidLineUnit2;
+        Unit enemyMidLineUnit3;
+        Unit enemyMidLineUnit4;
+        Unit enemyMidLineUnit5;
+
+        Unit enemyBackLineUnit1;
+        Unit enemyBackLineUnit2;
+        Unit enemyBackLineUnit3;
+        Unit enemyBackLineUnit4;
+        Unit enemyBackLineUnit5;
 
         Unit[] unitList;
 
@@ -117,6 +141,37 @@ namespace TurnBasedTest
         }
 
         /// <summary>
+        /// Takes a units deploy cost and measures it against another unit's deploy cost then changes the 
+        /// players cost accordingly.
+        /// </summary>
+        /// <param name="unit1"> The unit that is being swapped out. </param>
+        /// <param name="unit2"> The unit that is being swapped in. </param>
+        /// <returns> True or false, depending on if the deploy cost was able to be changed or not. </returns>
+        bool GetDeployCost(Unit unit1, Unit unit2)
+        {
+            if (playerDeploy <= 0)
+            {
+                Console.WriteLine("Not enough deploy");
+                return false;
+            }
+            else
+            {
+                if (unit1.deployCost < unit2.deployCost)
+                {
+                    playerDeploy -= unit2.deployCost - unit1.deployCost;
+                    return true;
+                }
+                else if (unit1.deployCost > unit2.deployCost)
+                {
+                    playerDeploy += unit1.deployCost - unit2.deployCost;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// This method will allow the user to choose a unit to swap and what to swap that unit into.
         /// </summary>
         void GetUnitChange()
@@ -127,6 +182,9 @@ namespace TurnBasedTest
             unitSwap.health = 0;
             unitSwap.attack = 0;
             unitSwap.defense = 0;
+            unitSwap.deployCost = 0;
+
+            bool canSwap = false;
 
             string input = "None";
             int choice = GetInput("Which row would you like to change?", "Front Line", "Middle Line", 
@@ -136,34 +194,49 @@ namespace TurnBasedTest
             switch (choice)
             {
                 case 1:
+                    Console.WriteLine("Available Deploy: " + playerDeploy);
                     Console.Write("Which position would you like to change? \n1. " + playerFrontLineUnit1.name +
                 "\n2. " + playerFrontLineUnit2.name + "\n3. " + playerFrontLineUnit3.name + "\n4. " +
                 playerFrontLineUnit4.name + "\n5. " + playerFrontLineUnit5.name + "\n6. Go Back" + "\n> ");
                     // Gets player input.
-
                     input = Console.ReadLine().ToLower();
 
                     switch (input)
                     {
                         case "1":
                             ChangeUnit(ref unitSwap);
-                            playerFrontLineUnit1 = unitSwap;
+                            if (canSwap = GetDeployCost(playerFrontLineUnit1, unitSwap))
+                            {
+                                playerFrontLineUnit1 = unitSwap;
+                            }
                             break;
                         case "2":
                             ChangeUnit(ref unitSwap);
-                            playerFrontLineUnit2 = unitSwap;
+                            if (canSwap = GetDeployCost(playerFrontLineUnit2, unitSwap))
+                            {
+                                playerFrontLineUnit2 = unitSwap;
+                            }
                             break;
                         case "3":
                             ChangeUnit(ref unitSwap);
-                            playerFrontLineUnit3 = unitSwap;
+                            if (canSwap = GetDeployCost(playerFrontLineUnit3, unitSwap))
+                            {
+                                playerFrontLineUnit3 = unitSwap;
+                            }
                             break;
                         case "4":
                             ChangeUnit(ref unitSwap);
-                            playerFrontLineUnit4 = unitSwap;
+                            if (canSwap = GetDeployCost(playerFrontLineUnit4, unitSwap))
+                            {
+                                playerFrontLineUnit4 = unitSwap;
+                            }
                             break;
                         case "5":
                             ChangeUnit(ref unitSwap);
-                            playerFrontLineUnit5 = unitSwap;
+                            if (canSwap = GetDeployCost(playerFrontLineUnit5, unitSwap))
+                            {
+                                playerFrontLineUnit5 = unitSwap;
+                            }
                             break;
                         case "6":
                             break;
@@ -175,6 +248,7 @@ namespace TurnBasedTest
                     }
                     break;
                 case 2:
+                    Console.WriteLine("Available Deploy: " + playerDeploy);
                     Console.Write("Which position would you like to change? \n1. " + playerMidLineUnit1.name +
                 "\n2. " + playerMidLineUnit2.name + "\n3. " + playerMidLineUnit3.name + "\n4. " +
                 playerMidLineUnit4.name + "\n5. " + playerMidLineUnit5.name + "\n6. Go Back" + "\n> ");
@@ -186,23 +260,40 @@ namespace TurnBasedTest
                     {
                         case "1":
                             ChangeUnit(ref unitSwap);
-                            playerMidLineUnit1 = unitSwap;
+                            if (canSwap = GetDeployCost(playerMidLineUnit1, unitSwap))
+                            {
+                                playerMidLineUnit1 = unitSwap;
+                            }
                             break;
                         case "2":
                             ChangeUnit(ref unitSwap);
-                            playerMidLineUnit2 = unitSwap;
+                            if (canSwap = GetDeployCost(playerMidLineUnit2, unitSwap))
+                            {
+                                playerMidLineUnit2 = unitSwap;
+                            }
                             break;
                         case "3":
                             ChangeUnit(ref unitSwap);
-                            playerMidLineUnit3 = unitSwap;
+                            if (canSwap = GetDeployCost(playerMidLineUnit3, unitSwap))
+                            {
+                                playerMidLineUnit3 = unitSwap;
+                            }
                             break;
                         case "4":
                             ChangeUnit(ref unitSwap);
-                            playerMidLineUnit4 = unitSwap;
+                            if (canSwap = GetDeployCost(playerMidLineUnit4, unitSwap))
+                            {
+                                GetDeployCost(playerMidLineUnit4, unitSwap);
+                                ChangeUnit(ref unitSwap);
+                                playerMidLineUnit4 = unitSwap;
+                            }
                             break;
                         case "5":
                             ChangeUnit(ref unitSwap);
-                            playerMidLineUnit5 = unitSwap;
+                            if (canSwap = GetDeployCost(playerMidLineUnit5, unitSwap))
+                            {
+                                playerMidLineUnit5 = unitSwap;
+                            }
                             break;
                         case "6":
                             break;
@@ -214,6 +305,7 @@ namespace TurnBasedTest
                     }
                     break;
                 case 3:
+                    Console.WriteLine("Available Deploy: " + playerDeploy);
                     Console.Write("Which position would you like to change? \n1. " + playerBackLineUnit1.name +
                 "\n2. " + playerBackLineUnit2.name + "\n3. " + playerBackLineUnit3.name + "\n4. " +
                 playerBackLineUnit4.name + "\n5. " + playerBackLineUnit5.name + "\n6. Go Back" + "\n> ");
@@ -225,23 +317,38 @@ namespace TurnBasedTest
                     {
                         case "1":
                             ChangeUnit(ref unitSwap);
-                            playerBackLineUnit1 = unitSwap;
+                            if (canSwap = GetDeployCost(playerBackLineUnit1, unitSwap))
+                            {
+                                playerBackLineUnit1 = unitSwap;
+                            }
                             break;
                         case "2":
                             ChangeUnit(ref unitSwap);
-                            playerBackLineUnit2 = unitSwap;
+                            if (canSwap = GetDeployCost(playerBackLineUnit2, unitSwap))
+                            {
+                                playerBackLineUnit2 = unitSwap;
+                            }
                             break;
                         case "3":
                             ChangeUnit(ref unitSwap);
-                            playerBackLineUnit3 = unitSwap;
+                            if (canSwap = GetDeployCost(playerBackLineUnit3, unitSwap))
+                            {
+                                playerBackLineUnit3 = unitSwap;
+                            }
                             break;
                         case "4":
                             ChangeUnit(ref unitSwap);
-                            playerBackLineUnit4 = unitSwap;
+                            if (canSwap = GetDeployCost(playerBackLineUnit4, unitSwap))
+                            {
+                                playerBackLineUnit4 = unitSwap;
+                            }
                             break;
                         case "5":
                             ChangeUnit(ref unitSwap);
-                            playerBackLineUnit5 = unitSwap;
+                            if (canSwap = GetDeployCost(playerBackLineUnit5, unitSwap))
+                            {
+                                playerBackLineUnit5 = unitSwap;
+                            }
                             break;
                         case "6":
                             break;
@@ -306,30 +413,14 @@ namespace TurnBasedTest
         /// </summary>
         void DisplayPlayerSquad()
         {
-            Console.WriteLine("Front Line:");
-            DisplayUnitStats(playerFrontLineUnit1);
-            DisplayUnitStats(playerFrontLineUnit2);
-            DisplayUnitStats(playerFrontLineUnit3);
-            DisplayUnitStats(playerFrontLineUnit4);
-            DisplayUnitStats(playerFrontLineUnit5);
-            Console.ReadKey(true);
-            Console.Clear();
+            for(int i = 0; i < playerSquad.Length; i++)
+            {
+                DisplayUnitStats(playerSquad[i]);
+                if (i == 4 || i == 9 || i == 14)
+                {
 
-            Console.WriteLine("Middle Line");
-            DisplayUnitStats(playerMidLineUnit1);
-            DisplayUnitStats(playerMidLineUnit2);
-            DisplayUnitStats(playerMidLineUnit3);
-            DisplayUnitStats(playerMidLineUnit4);
-            DisplayUnitStats(playerMidLineUnit5);
-            Console.ReadKey(true);
-            Console.Clear();
-
-            Console.WriteLine("Back Line");
-            DisplayUnitStats(playerBackLineUnit1);
-            DisplayUnitStats(playerBackLineUnit2);
-            DisplayUnitStats(playerBackLineUnit3);
-            DisplayUnitStats(playerBackLineUnit4);
-            DisplayUnitStats(playerBackLineUnit5);
+                }
+            }
         }
 
         /// <summary>
@@ -344,12 +435,14 @@ namespace TurnBasedTest
             unit.health = 0;
             unit.attack = 0;
             unit.defense = 0;
+            unit.deployCost = 0;
 
             for (int i = 0; i < unitList.Length; i++)
             {
                 if (unitIdentifier == unitList[i].name.ToLower())
                 {
                     unit = unitList[i];
+                    break;
                 }
             }
 
@@ -367,7 +460,16 @@ namespace TurnBasedTest
             switch (choice)
             {
                 case 1:
-                    currentScene = 1;
+                    if (!commanderInArmy)
+                    { 
+                        Console.WriteLine("Your commander is not in your army.");
+                        Console.ReadKey(true);
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        currentScene = 1;
+                    }
                     break;
                 case 2:
                     currentScene = 2;
@@ -384,7 +486,7 @@ namespace TurnBasedTest
         /// </summary>
         void ChangePlayerSquad()
         {
-            int choice = GetInput("What would you like to do?", "Switch Unit", "Check Squad Stats", "Back");
+            int choice = GetInput("What would you like to do?", "Switch Unit", "Check Squad Stats", "Go Back");
 
             switch (choice)
             {
@@ -427,9 +529,11 @@ namespace TurnBasedTest
         /// </summary>
         void Start()
         {
-            // Initializes the player's army.   
-            int[] playerFrontLine = new int[5];
-            int[] enemyFrontLine = new int[5];
+            // Initializes the player's squad.   
+            playerSquad = new Unit[] {playerFrontLineUnit1, playerFrontLineUnit2, playerFrontLineUnit3,
+            playerFrontLineUnit4, playerFrontLineUnit5, playerMidLineUnit1, playerMidLineUnit2, playerMidLineUnit3,
+            playerMidLineUnit4, playerMidLineUnit5, playerBackLineUnit1, playerBackLineUnit2, playerBackLineUnit3,
+            playerBackLineUnit4, playerBackLineUnit5};
 
             // Initializes the stats for the Commander.
             Commander.name = "Ivan";
@@ -437,6 +541,7 @@ namespace TurnBasedTest
             Commander.health = 25;
             Commander.attack = 10;
             Commander.defense = 6;
+            Commander.deployCost = 0;
 
             // Initalizes the stats for a soldier.
             Soldier.name = "Soldier";
@@ -444,6 +549,7 @@ namespace TurnBasedTest
             Soldier.health = 10;
             Soldier.attack = 8;
             Soldier.defense = 4;
+            Soldier.deployCost = 2;
 
             // Initializes the stats for a ruffian.
             Ruffian.name = "Ruffian";
@@ -451,6 +557,7 @@ namespace TurnBasedTest
             Ruffian.health = 12;
             Ruffian.attack = 10;
             Ruffian.defense = 3;
+            Ruffian.deployCost = 2;
 
             // Initalizes the stats for an archer.
             Archer.name = "Archer";
@@ -458,6 +565,7 @@ namespace TurnBasedTest
             Archer.health = 8;
             Archer.attack = 10;
             Archer.defense = 2;
+            Archer.deployCost = 2;
 
             // Initalizes the stats for a cleric.
             Cleric.name = "Cleric";
@@ -465,6 +573,7 @@ namespace TurnBasedTest
             Cleric.health = 8;
             Cleric.attack = 5;
             Cleric.defense = 2;
+            Cleric.deployCost = 3;
 
             // Initalizes the stats for an assassin.
             Shadowstepper.name = "Shadowstepper";
@@ -472,8 +581,9 @@ namespace TurnBasedTest
             Shadowstepper.health = 8;
             Shadowstepper.attack = 10;
             Shadowstepper.defense = 2;
+            Shadowstepper.deployCost = 3;
 
-            unitList = new Unit[] { Soldier, Ruffian, Archer, Cleric, Shadowstepper };
+            unitList = new Unit[] { Commander, Soldier, Ruffian, Archer, Cleric, Shadowstepper };
         }
 
 
