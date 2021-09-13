@@ -572,16 +572,10 @@ namespace TurnBasedTest
         void Start()
         {
             // Initializes the player's squad.   
-            playerSquad = new Unit[] {playerFrontLineUnit1, playerFrontLineUnit2, playerFrontLineUnit3,
-            playerFrontLineUnit4, playerFrontLineUnit5, playerMidLineUnit1, playerMidLineUnit2, playerMidLineUnit3,
-            playerMidLineUnit4, playerMidLineUnit5, playerBackLineUnit1, playerBackLineUnit2, playerBackLineUnit3,
-            playerBackLineUnit4, playerBackLineUnit5};
+            playerSquad = new Unit[15];
 
             // Initializes the enemy's squad.   
-            enemySquad = new Unit[] {playerFrontLineUnit1, playerFrontLineUnit2, playerFrontLineUnit3,
-            playerFrontLineUnit4, playerFrontLineUnit5, playerMidLineUnit1, playerMidLineUnit2, playerMidLineUnit3,
-            playerMidLineUnit4, playerMidLineUnit5, playerBackLineUnit1, playerBackLineUnit2, playerBackLineUnit3,
-            playerBackLineUnit4, playerBackLineUnit5};
+            enemySquad = new Unit[15];
 
             // Initializes the stats for Ivan.
             Unit ivan = new Unit { name = "Ivan", maxHealth = 25, health = 25, attack = 10, defense = 6, 
