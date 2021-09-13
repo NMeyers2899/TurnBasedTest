@@ -23,15 +23,9 @@ namespace TurnBasedTest
         bool commanderInArmy = false;
 
         // Initalizes the stats of different units.
-        Unit Ivan;
-        Unit Soldier;
-        Unit Ruffian;
-        Unit Archer;
-        Unit Cleric;
-        Unit Shadowstepper;
         Unit Lancer;
-        Unit Necromancer;
-        Unit Skeleton;
+        Unit Puppetmaker;
+        Unit Marionett;
         Unit Abomination;
         Unit Shapeshifter;
         Unit VoidMage;
@@ -60,8 +54,10 @@ namespace TurnBasedTest
         Unit playerBackLineUnit4;
         Unit playerBackLineUnit5;
 
-        
+
         // Initalizes the enemy's army.
+        Unit[] enemySquad;
+
         Unit enemyFrontLineUnit1;
         Unit enemyFrontLineUnit2;
         Unit enemyFrontLineUnit3;
@@ -581,55 +577,37 @@ namespace TurnBasedTest
             playerMidLineUnit4, playerMidLineUnit5, playerBackLineUnit1, playerBackLineUnit2, playerBackLineUnit3,
             playerBackLineUnit4, playerBackLineUnit5};
 
-            // Initializes the stats for the Commander.
-            Ivan.name = "Ivan";
-            Ivan.maxHealth = 25;
-            Ivan.health = 25;
-            Ivan.attack = 10;
-            Ivan.defense = 6;
-            Ivan.deployCost = 0;
+            // Initializes the enemy's squad.   
+            enemySquad = new Unit[] {playerFrontLineUnit1, playerFrontLineUnit2, playerFrontLineUnit3,
+            playerFrontLineUnit4, playerFrontLineUnit5, playerMidLineUnit1, playerMidLineUnit2, playerMidLineUnit3,
+            playerMidLineUnit4, playerMidLineUnit5, playerBackLineUnit1, playerBackLineUnit2, playerBackLineUnit3,
+            playerBackLineUnit4, playerBackLineUnit5};
+
+            // Initializes the stats for Ivan.
+            Unit ivan = new Unit { name = "Ivan", maxHealth = 25, health = 25, attack = 10, defense = 6, 
+                deployCost = 0 };
 
             // Initalizes the stats for a soldier.
-            Soldier.name = "Soldier";
-            Soldier.maxHealth = 10;
-            Soldier.health = 10;
-            Soldier.attack = 8;
-            Soldier.defense = 4;
-            Soldier.deployCost = 2;
+            Unit soldier = new Unit { name = "Soldier", maxHealth = 10, health = 10, attack = 8, defense = 4,
+                deployCost = 2 };
 
             // Initializes the stats for a ruffian.
-            Ruffian.name = "Ruffian";
-            Ruffian.maxHealth = 12;
-            Ruffian.health = 12;
-            Ruffian.attack = 10;
-            Ruffian.defense = 3;
-            Ruffian.deployCost = 2;
+            Unit ruffian = new Unit { name = "Ruffian", maxHealth = 12, health = 12, attack = 10, defense = 3,
+                deployCost = 2 };
 
             // Initalizes the stats for an archer.
-            Archer.name = "Archer";
-            Archer.maxHealth = 8;
-            Archer.health = 8;
-            Archer.attack = 10;
-            Archer.defense = 2;
-            Archer.deployCost = 2;
+            Unit archer = new Unit { name = "Archer", maxHealth = 8, health = 8, attack = 10, defense = 2,
+                deployCost = 2 };
 
             // Initalizes the stats for a cleric.
-            Cleric.name = "Cleric";
-            Cleric.maxHealth = 8;
-            Cleric.health = 8;
-            Cleric.attack = 5;
-            Cleric.defense = 2;
-            Cleric.deployCost = 3;
+            Unit cleric = new Unit { name = "Cleric", maxHealth = 8, health = 8, attack = 5, defense = 2,
+                deployCost = 3 };
 
             // Initalizes the stats for an assassin.
-            Shadowstepper.name = "Shadowstepper";
-            Shadowstepper.maxHealth = 8;
-            Shadowstepper.health = 8;
-            Shadowstepper.attack = 10;
-            Shadowstepper.defense = 2;
-            Shadowstepper.deployCost = 3;
+            Unit shadowstepper = new Unit { name = "Shadowstepper", maxHealth = 8, health = 8, attack = 10,
+                defense = 2, deployCost = 3 };
 
-            unitList = new Unit[] { Ivan, Soldier, Ruffian, Archer, Cleric, Shadowstepper };
+            unitList = new Unit[] { ivan, soldier, ruffian, archer, cleric, shadowstepper };
         }
 
 
