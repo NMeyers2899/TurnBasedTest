@@ -19,12 +19,14 @@ namespace TurnBasedTest
     class Game
     {
         // Initalizes the stats of different units.
+        Unit Commander;
         Unit Soldier;
         Unit Ruffian;
-        Unit Commander;
         Unit Archer;
         Unit Cleric;
-        Unit Assassin;
+        Unit Shadowstepper;
+        Unit Abomination;
+        Unit Shapeshifter;
         Unit VoidMage;
         Unit Reaver;
 
@@ -117,8 +119,7 @@ namespace TurnBasedTest
         /// <summary>
         /// This method will allow the user to choose a unit to swap and what to swap that unit into.
         /// </summary>
-        /// <param name="pauseInvalid"> Pauses the game if the choice was invalid. </param>
-        void GetUnitChange(bool pauseInvalid = false)
+        void GetUnitChange()
         {
             Unit unitSwap;
             unitSwap.name = "None";
@@ -127,50 +128,131 @@ namespace TurnBasedTest
             unitSwap.attack = 0;
             unitSwap.defense = 0;
 
-            Console.Write("Which position would you like to change? \n1. " + playerFrontLineUnit1.name +
-                "\n2. " + playerFrontLineUnit2.name + "\n3. " + playerFrontLineUnit3.name + "\n4. " +
-                playerFrontLineUnit4.name + "\n5. " + playerFrontLineUnit5.name + "\n> ");
-            // Gets player input.
-
-            string input = Console.ReadLine().ToLower();
-            int choice = 0;
-
-            if (input == "1")
-            {
-                ChangeUnit(ref unitSwap);
-                playerFrontLineUnit1 = unitSwap;
-            }
-            else if (input == "2")
-            {
-                ChangeUnit(ref unitSwap);
-                playerFrontLineUnit2 = unitSwap;
-            }
-            else if (input == "3")
-            {
-                ChangeUnit(ref unitSwap);
-                playerFrontLineUnit3 = unitSwap;
-            }
-            else if (input == "4")
-            {
-                ChangeUnit(ref unitSwap);
-                playerFrontLineUnit4 = unitSwap;
-            }
-            else if (input == "5")
-            {
-                ChangeUnit(ref unitSwap);
-                playerFrontLineUnit5 = unitSwap;
-            }
-            else
-            {
-                Console.WriteLine("Invalid Input");
-
-                if (pauseInvalid)
-                {
-                    Console.ReadKey(true);
-                }
-            }
-            Console.ReadKey(true);
+            string input = "None";
+            int choice = GetInput("Which row would you like to change?", "Front Line", "Middle Line", 
+                "Back Line");
             Console.Clear();
+
+            switch (choice)
+            {
+                case 1:
+                    Console.Write("Which position would you like to change? \n1. " + playerFrontLineUnit1.name +
+                "\n2. " + playerFrontLineUnit2.name + "\n3. " + playerFrontLineUnit3.name + "\n4. " +
+                playerFrontLineUnit4.name + "\n5. " + playerFrontLineUnit5.name + "\n6. Go Back" + "\n> ");
+                    // Gets player input.
+
+                    input = Console.ReadLine().ToLower();
+
+                    switch (input)
+                    {
+                        case "1":
+                            ChangeUnit(ref unitSwap);
+                            playerFrontLineUnit1 = unitSwap;
+                            break;
+                        case "2":
+                            ChangeUnit(ref unitSwap);
+                            playerFrontLineUnit2 = unitSwap;
+                            break;
+                        case "3":
+                            ChangeUnit(ref unitSwap);
+                            playerFrontLineUnit3 = unitSwap;
+                            break;
+                        case "4":
+                            ChangeUnit(ref unitSwap);
+                            playerFrontLineUnit4 = unitSwap;
+                            break;
+                        case "5":
+                            ChangeUnit(ref unitSwap);
+                            playerFrontLineUnit5 = unitSwap;
+                            break;
+                        case "6":
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Input");
+                            Console.ReadKey(true);
+                            Console.Clear();
+                            break;
+                    }
+                    break;
+                case 2:
+                    Console.Write("Which position would you like to change? \n1. " + playerMidLineUnit1.name +
+                "\n2. " + playerMidLineUnit2.name + "\n3. " + playerMidLineUnit3.name + "\n4. " +
+                playerMidLineUnit4.name + "\n5. " + playerMidLineUnit5.name + "\n6. Go Back" + "\n> ");
+                    // Gets player input.
+
+                    input = Console.ReadLine().ToLower();
+
+                    switch (input)
+                    {
+                        case "1":
+                            ChangeUnit(ref unitSwap);
+                            playerMidLineUnit1 = unitSwap;
+                            break;
+                        case "2":
+                            ChangeUnit(ref unitSwap);
+                            playerMidLineUnit2 = unitSwap;
+                            break;
+                        case "3":
+                            ChangeUnit(ref unitSwap);
+                            playerMidLineUnit3 = unitSwap;
+                            break;
+                        case "4":
+                            ChangeUnit(ref unitSwap);
+                            playerMidLineUnit4 = unitSwap;
+                            break;
+                        case "5":
+                            ChangeUnit(ref unitSwap);
+                            playerMidLineUnit5 = unitSwap;
+                            break;
+                        case "6":
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Input");
+                            Console.ReadKey(true);
+                            Console.Clear();
+                            break;
+                    }
+                    break;
+                case 3:
+                    Console.Write("Which position would you like to change? \n1. " + playerBackLineUnit1.name +
+                "\n2. " + playerBackLineUnit2.name + "\n3. " + playerBackLineUnit3.name + "\n4. " +
+                playerBackLineUnit4.name + "\n5. " + playerBackLineUnit5.name + "\n6. Go Back" + "\n> ");
+                    // Gets player input.
+
+                    input = Console.ReadLine().ToLower();
+
+                    switch (input)
+                    {
+                        case "1":
+                            ChangeUnit(ref unitSwap);
+                            playerBackLineUnit1 = unitSwap;
+                            break;
+                        case "2":
+                            ChangeUnit(ref unitSwap);
+                            playerBackLineUnit2 = unitSwap;
+                            break;
+                        case "3":
+                            ChangeUnit(ref unitSwap);
+                            playerBackLineUnit3 = unitSwap;
+                            break;
+                        case "4":
+                            ChangeUnit(ref unitSwap);
+                            playerBackLineUnit4 = unitSwap;
+                            break;
+                        case "5":
+                            ChangeUnit(ref unitSwap);
+                            playerBackLineUnit5 = unitSwap;
+                            break;
+                        case "6":
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Input");
+                            Console.ReadKey(true);
+                            Console.Clear();
+                            break;
+                    }
+                    break;
+            }
         }
 
         /// <summary>
@@ -198,7 +280,7 @@ namespace TurnBasedTest
         /// </summary>
         /// <param name="unit1"> The attacker, who will deal damage. </param>
         /// <param name="unit2"> The target, who will take the damage being dealt. </param>
-        void Combat(ref Unit unit1, ref Unit unit2)
+        void DoCombat(ref Unit unit1, ref Unit unit2)
         {
             // Calculates the damage that will be dealt.
             int damageTaken = DealDamage(unit1.attack, unit2.defense);
@@ -220,43 +302,55 @@ namespace TurnBasedTest
         }
 
         /// <summary>
+        /// Displays the stats of the player's squad when called upon.
+        /// </summary>
+        void DisplayPlayerSquad()
+        {
+            Console.WriteLine("Front Line:");
+            DisplayUnitStats(playerFrontLineUnit1);
+            DisplayUnitStats(playerFrontLineUnit2);
+            DisplayUnitStats(playerFrontLineUnit3);
+            DisplayUnitStats(playerFrontLineUnit4);
+            DisplayUnitStats(playerFrontLineUnit5);
+            Console.ReadKey(true);
+            Console.Clear();
+
+            Console.WriteLine("Middle Line");
+            DisplayUnitStats(playerMidLineUnit1);
+            DisplayUnitStats(playerMidLineUnit2);
+            DisplayUnitStats(playerMidLineUnit3);
+            DisplayUnitStats(playerMidLineUnit4);
+            DisplayUnitStats(playerMidLineUnit5);
+            Console.ReadKey(true);
+            Console.Clear();
+
+            Console.WriteLine("Back Line");
+            DisplayUnitStats(playerBackLineUnit1);
+            DisplayUnitStats(playerBackLineUnit2);
+            DisplayUnitStats(playerBackLineUnit3);
+            DisplayUnitStats(playerBackLineUnit4);
+            DisplayUnitStats(playerBackLineUnit5);
+        }
+
+        /// <summary>
         /// Uses an identifier to get a given unit, and sets it equal to that unit's stats.
         /// </summary>
         /// <param name="unitIdentifier"> The indentifier number for a unit. </param>
         Unit GetUnit(string unitIdentifier)
         {
             Unit unit;
-            unit.name = "None";
+            unit.name = "";
             unit.maxHealth = 0;
             unit.health = 0;
             unit.attack = 0;
             unit.defense = 0;
 
-            switch (unitIdentifier)
+            for (int i = 0; i < unitList.Length; i++)
             {
-                case "soldier":
-                    unit = Soldier;
-                    break;
-
-                case "ruffian":
-                    unit = Ruffian;
-                    break;
-
-                case "archer":
-                    unit = Archer;
-                    break;
-
-                case "cleric":
-                    unit = Cleric;
-                    break;
-
-                case "assassin":
-                    unit = Assassin;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid Input");
-                    break;
+                if (unitIdentifier == unitList[i].name.ToLower())
+                {
+                    unit = unitList[i];
+                }
             }
 
             return unit;
@@ -300,11 +394,7 @@ namespace TurnBasedTest
                     break;
                 case 2:
                     Console.Clear();
-                    DisplayUnitStats(playerFrontLineUnit1);
-                    DisplayUnitStats(playerFrontLineUnit2);
-                    DisplayUnitStats(playerFrontLineUnit3);
-                    DisplayUnitStats(playerFrontLineUnit4);
-                    DisplayUnitStats(playerFrontLineUnit5);
+                    DisplayPlayerSquad();
                     Console.ReadKey(true);
                     Console.Clear();
                     break;
@@ -326,6 +416,7 @@ namespace TurnBasedTest
             Console.Clear();
 
             DisplayUnitList();
+            Console.WriteLine();
             Console.Write("Which unit do you want to swap into this position? \n>");
             input = Console.ReadLine().ToLower();
             unit = GetUnit(input);
@@ -376,13 +467,13 @@ namespace TurnBasedTest
             Cleric.defense = 2;
 
             // Initalizes the stats for an assassin.
-            Assassin.name = "Assassin";
-            Assassin.maxHealth = 8;
-            Assassin.health = 8;
-            Assassin.attack = 10;
-            Assassin.defense = 2;
+            Shadowstepper.name = "Shadowstepper";
+            Shadowstepper.maxHealth = 8;
+            Shadowstepper.health = 8;
+            Shadowstepper.attack = 10;
+            Shadowstepper.defense = 2;
 
-            unitList = new Unit[] { Soldier, Ruffian, Archer, Cleric, Assassin };
+            unitList = new Unit[] { Soldier, Ruffian, Archer, Cleric, Shadowstepper };
         }
 
 
