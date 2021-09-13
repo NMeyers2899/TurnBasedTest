@@ -172,6 +172,22 @@ namespace TurnBasedTest
         }
 
         /// <summary>
+        /// Resets a unit's stats to zero.
+        /// </summary>
+        /// <param name="unit"> The unit that will be reset. </param>
+        void RemoveUnit(ref Unit unit)
+        {
+            playerDeploy += unit.deployCost;
+
+            unit.name = "";
+            unit.maxHealth = 0;
+            unit.health = 0;
+            unit.attack = 0;
+            unit.defense = 0;
+            unit.deployCost = 0;
+        }
+
+        /// <summary>
         /// This method will allow the user to choose a unit to swap and what to swap that unit into.
         /// </summary>
         void GetUnitChange()
@@ -413,14 +429,30 @@ namespace TurnBasedTest
         /// </summary>
         void DisplayPlayerSquad()
         {
-            for(int i = 0; i < playerSquad.Length; i++)
-            {
-                DisplayUnitStats(playerSquad[i]);
-                if (i == 4 || i == 9 || i == 14)
-                {
+            Console.WriteLine("Front Line:");
+            DisplayUnitStats(playerFrontLineUnit1);
+            DisplayUnitStats(playerFrontLineUnit2);
+            DisplayUnitStats(playerFrontLineUnit3);
+            DisplayUnitStats(playerFrontLineUnit4);
+            DisplayUnitStats(playerFrontLineUnit5);
+            Console.ReadKey(true);
+            Console.Clear();
 
-                }
-            }
+            Console.WriteLine("Middle Line");
+            DisplayUnitStats(playerMidLineUnit1);
+            DisplayUnitStats(playerMidLineUnit2);
+            DisplayUnitStats(playerMidLineUnit3);
+            DisplayUnitStats(playerMidLineUnit4);
+            DisplayUnitStats(playerMidLineUnit5);
+            Console.ReadKey(true);
+            Console.Clear();
+
+            Console.WriteLine("Back Line");
+            DisplayUnitStats(playerBackLineUnit1);
+            DisplayUnitStats(playerBackLineUnit2);
+            DisplayUnitStats(playerBackLineUnit3);
+            DisplayUnitStats(playerBackLineUnit4);
+            DisplayUnitStats(playerBackLineUnit5);
         }
 
         /// <summary>
@@ -518,10 +550,18 @@ namespace TurnBasedTest
             Console.Clear();
 
             DisplayUnitList();
+            Console.WriteLine("Remove");
             Console.WriteLine();
             Console.Write("Which unit do you want to swap into this position? \n>");
             input = Console.ReadLine().ToLower();
-            unit = GetUnit(input);
+            if(input == "remove")
+            {
+                RemoveUnit(ref unit);
+            }
+            else
+            {
+                unit = GetUnit(input);
+            }
         }
 
         /// <summary>
