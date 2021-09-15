@@ -154,6 +154,10 @@ namespace TurnBasedTest
             }
         }
 
+        /// <summary>
+        /// Displays the menu that allows the player to check their squad's stats and change the units in
+        /// their squad.
+        /// </summary>
         private void DisplayUnitMenu()
         {
             int choice = GetInput("What would you like to do?", "Change Unit", "Check Squad Stats", "Go Back");
@@ -169,6 +173,14 @@ namespace TurnBasedTest
                     currentScene = 0;
                     break;
             }
+        }
+
+        /// <summary>
+        /// Gets the position the player wishes to change, and what change they'd like to make to it.
+        /// </summary>
+        private void ChangeUnit()
+        {
+
         }
 
         /// <summary>
