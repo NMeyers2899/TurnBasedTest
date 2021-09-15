@@ -33,7 +33,25 @@ namespace TurnBasedTest
         /// </summary>
         private void Start()
         {
+            // Initializes the stats for Ivan.
+            Unit ivan = new Unit("Ivan", 25, 10, 5, 0);
 
+            // Initalizes the stats for a soldier.
+            Unit soldier = new Unit("Soldier", 10, 8, 3, 2);
+
+            // Initializes the stats for a ruffian.
+            Unit ruffian = new Unit("Ruffian", 15, 12, 2, 2);
+
+            // Initalizes the stats for an archer.
+            Unit archer = new Unit("Archer", 8, 10, 3, 2);
+
+            // Initalizes the stats for a cleric.
+            Unit cleric = new Unit("Cleric", 6, 0, 2, 3);
+
+            // Initalizes the stats for an assassin.
+            Unit shadowstepper = new Unit("Shadowstepper", 8, 10, 2, 3);
+
+            unitList = new Unit[] { ivan, soldier, ruffian, archer, cleric, shadowstepper };
         }
 
 
