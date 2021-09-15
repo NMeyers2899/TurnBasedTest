@@ -4,15 +4,13 @@ using System.Text;
 
 namespace TurnBasedTest
 {
-    class Unit
+    public class Unit
     {
         private string _name;
         private float _maxHealth;
         private float _health;
         private float _attackPower;
         private float _defensePower;
-        private float _magic;
-        private float _resistance;
         private int _deployCost;
 
         public string Name
@@ -35,16 +33,6 @@ namespace TurnBasedTest
             get { return _defensePower; }
         }
 
-        public float Magic
-        {
-            get { return _magic; }
-        }
-
-        public float Resistance
-        {
-            get { return _resistance; }
-        }
-
         public int DeployCost
         {
             get { return _deployCost; }
@@ -57,21 +45,16 @@ namespace TurnBasedTest
             _health = _maxHealth;
             _attackPower = 0;
             _defensePower = 0;
-            _magic = 0;
-            _resistance = 0;
             _deployCost = 0;
         }
 
-        public Unit(string name, float maxHealth, float attack, float defense, float magic, float resistance,
-            int deployCost)
+        public Unit(string name, float maxHealth, float attack, float defense, int deployCost)
         {
             _name = name;
             _maxHealth = maxHealth;
             _health = maxHealth;
             _attackPower = attack;
             _defensePower = defense;
-            _magic = magic;
-            _resistance = resistance;
             _deployCost = deployCost;
         }
 
@@ -94,6 +77,11 @@ namespace TurnBasedTest
             return damageTaken;
         }
 
+        /// <summary>
+        /// This unit will attack another. Dealing damage to it.
+        /// </summary>
+        /// <param name="target"> The target of the attack. </param>
+        /// <returns> Returns the damage taken by the target. </returns>
         public float Attack(Unit target)
         {
             return target.TakeDamage(AttackPower);

@@ -4,19 +4,29 @@ using System.Text;
 
 namespace TurnBasedTest
 {
-    class Player
+    public class Player
     {
         private int _playerDeploy;
-        private Unit[] playerArmy = new Unit[15];
+        private Unit[] _playerArmy = new Unit[15];
 
         public int PlayerDeploy
         {
             get { return _playerDeploy; }
         }
+        
+        public Unit[] PlayerArmy
+        {
+            get { return _playerArmy; }
+        }
 
         public Player()
         {
             _playerDeploy = 16;
+
+            for(int i = 0; i < _playerArmy.Length; i++)
+            {
+                _playerArmy[i] = new Unit();
+            }
         }
 
         /// <summary>
@@ -26,12 +36,16 @@ namespace TurnBasedTest
         /// <param name="position"> The position the unit will be added to in the array. </param>
         public void AddUnit(Unit unit, int position)
         {
-            playerArmy[position] = unit;
+            _playerArmy[position] = unit;
         }
 
+        /// <summary>
+        /// Removes a unit from a position that the player decides.
+        /// </summary>
+        /// <param name="position"> The position at which a unit will be removed. </param>
         public void RemoveUnit(int position)
         {
-            playerArmy[position] = new Unit("None", 0, 0, 0, 0, 0, 0);
+            _playerArmy[position] = new Unit();
         }
     }
 }
