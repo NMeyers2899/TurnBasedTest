@@ -9,8 +9,8 @@ namespace TurnBasedTest
         private string _name;
         private float _maxHealth;
         private float _health;
-        private float _attack;
-        private float _defense;
+        private float _attackPower;
+        private float _defensePower;
         private float _magic;
         private float _resistance;
         private int _deployCost;
@@ -25,14 +25,14 @@ namespace TurnBasedTest
             get { return _health; }
         }
 
-        public float Attack
+        public float AttackPower
         {
-            get { return _attack; }
+            get { return _attackPower; }
         }
 
-        public float Defense
+        public float DefensePower
         {
-            get { return _defense; }
+            get { return _defensePower; }
         }
 
         public float Magic
@@ -55,8 +55,8 @@ namespace TurnBasedTest
             _name = "None";
             _maxHealth = 0;
             _health = _maxHealth;
-            _attack = 0;
-            _defense = 0;
+            _attackPower = 0;
+            _defensePower = 0;
             _magic = 0;
             _resistance = 0;
             _deployCost = 0;
@@ -68,8 +68,8 @@ namespace TurnBasedTest
             _name = name;
             _maxHealth = maxHealth;
             _health = maxHealth;
-            _attack = attack;
-            _defense = defense;
+            _attackPower = attack;
+            _defensePower = defense;
             _magic = magic;
             _resistance = resistance;
             _deployCost = deployCost;
@@ -82,7 +82,7 @@ namespace TurnBasedTest
         /// <returns> The amount of damage being dealt. </returns>
         public float TakeDamage(float damageAmount)
         {
-            float damageTaken = damageAmount - Defense;
+            float damageTaken = damageAmount - DefensePower;
 
             if (damageTaken < 0)
             {
@@ -92,6 +92,11 @@ namespace TurnBasedTest
             _health -= damageTaken;
 
             return damageTaken;
+        }
+
+        public float Attack(Unit target)
+        {
+            return target.TakeDamage(AttackPower);
         }
     }
 }

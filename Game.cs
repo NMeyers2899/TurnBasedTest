@@ -13,14 +13,74 @@ namespace TurnBasedTest
 
         private int currentScene = 0;
 
-        /// <summary>
-        /// Displays the current list of unlocked units.
-        /// </summary>
-        void DisplayUnitList()
+
+        public void Run()
         {
-            foreach(Unit unitName in unitList)
+            Start();
+
+            while (!gameOver)
             {
-                Console.WriteLine(unitName.Name);
+                Update();
+            }
+
+            End();
+        }
+
+        /// <summary>
+        /// Initializes everything that should be initalized before the start of the game.
+        /// </summary>
+        void Start()
+        {
+            // Initializes the stats for Ivan.
+            Unit ivan = new Unit("Ivan", 25, 10, 5, 8, 3, 0);
+
+            // Initalizes the stats for a soldier.
+            Unit soldier = new Unit("Soldier", 10, 8, 3, 0, 2, 2);
+
+            // Initializes the stats for a ruffian.
+            Unit ruffian = new Unit("Ruffian", 15, 12, 2, 0, 1, 2);
+
+            // Initalizes the stats for an archer.
+            Unit archer = new Unit("Archer", 8, 10, 3, 0, 2, 2);
+
+            // Initalizes the stats for a cleric.
+            Unit cleric = new Unit("Cleric", 6, 0, 2, 10, 8, 3);
+
+            // Initalizes the stats for an assassin.
+            Unit shadowstepper = new Unit("Shadowstepper", 8, 10, 2, 0, 5, 3);
+
+            unitList = new Unit[] { ivan, soldier, ruffian, archer, cleric, shadowstepper };
+        }
+
+
+        /// <summary>
+        /// Changes the information of the game.
+        /// </summary>
+        void Update()
+        {
+            Console.Clear();
+            UpdateScene();
+        }
+
+        void End()
+        {
+            Console.WriteLine("Goodbye!");
+        }
+
+        /// <summary>
+        /// Changes the scenes in the game.
+        /// </summary>
+        void UpdateScene()
+        {
+            switch (currentScene)
+            {
+                case 0:
+                    DisplayStartMenu();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
             }
         }
 
@@ -70,26 +130,6 @@ namespace TurnBasedTest
         }
 
         /// <summary>
-        /// Figures out the damage being dealt in a specific attack.
-        /// </summary>
-        /// <param name="attack"> The unit's attack. </param>
-        /// <param name="defense"> The target's defense. </param>
-        /// <returns> The damage dealt to the target. </returns>
-        int DealDamage(int attack, int defense)
-        {
-            // Calculates the damage that will be dealt.
-            int damage = attack - defense;
-
-            // Checks to see if the damage is less than zero. If it is, it sets damage to zero.
-            if(damage < 0)
-            {
-                return 0;
-            }
-
-            return damage;
-        }
-
-        /// <summary>
         /// Displays the start menu from which the player can start a battle, change their army, or quit 
         /// the game.
         /// </summary>
@@ -111,73 +151,14 @@ namespace TurnBasedTest
         }
 
         /// <summary>
-        /// Initializes everything that should be initalized before the start of the game.
+        /// Displays the current list of unlocked units.
         /// </summary>
-        void Start()
+        void DisplayUnitList()
         {
-            // Initializes the stats for Ivan.
-            Unit ivan = new Unit("Ivan", 25, 10, 5, 8, 3, 0);
-
-            // Initalizes the stats for a soldier.
-            Unit soldier = new Unit("Soldier", 10, 8, 3, 0, 2, 2);
-
-            // Initializes the stats for a ruffian.
-            Unit ruffian = new Unit();
-
-            // Initalizes the stats for an archer.
-            Unit archer = new Unit();
-
-            // Initalizes the stats for a cleric.
-            Unit cleric = new Unit();
-
-            // Initalizes the stats for an assassin.
-            Unit shadowstepper = new Unit();
-
-            unitList = new Unit[] { ivan, soldier, ruffian, archer, cleric, shadowstepper };
-        }
-
-
-        /// <summary>
-        /// Changes the information of the game.
-        /// </summary>
-        void Update()
-        {
-            Console.Clear();
-            UpdateScene();
-        }
-
-        void End()
-        {
-            Console.WriteLine("Goodbye!");
-        }
-
-        /// <summary>
-        /// Changes the scenes in the game.
-        /// </summary>
-        void UpdateScene()
-        {
-            switch (currentScene)
+            foreach (Unit unitName in unitList)
             {
-                case 0:
-                    DisplayStartMenu();
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
+                Console.WriteLine(unitName.Name);
             }
-        }
-
-        public void Run()
-        {
-            Start();
-
-            while (!gameOver)
-            {
-                Update();
-            }
-
-            End();
         }
     }
 }
