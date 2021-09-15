@@ -54,27 +54,7 @@ namespace TurnBasedTest
         Unit playerBackLineUnit4;
         Unit playerBackLineUnit5;
 
-
-        // Initalizes the enemy's army.
         Unit[] enemySquad;
-
-        Unit enemyFrontLineUnit1;
-        Unit enemyFrontLineUnit2;
-        Unit enemyFrontLineUnit3;
-        Unit enemyFrontLineUnit4;
-        Unit enemyFrontLineUnit5;
-
-        Unit enemyMidLineUnit1;
-        Unit enemyMidLineUnit2;
-        Unit enemyMidLineUnit3;
-        Unit enemyMidLineUnit4;
-        Unit enemyMidLineUnit5;
-
-        Unit enemyBackLineUnit1;
-        Unit enemyBackLineUnit2;
-        Unit enemyBackLineUnit3;
-        Unit enemyBackLineUnit4;
-        Unit enemyBackLineUnit5;
 
         Unit[] unitList;
 
@@ -471,6 +451,18 @@ namespace TurnBasedTest
             unit.defense = 0;
             unit.deployCost = 0;
 
+            if(unitIdentifier == "ivan" && commanderInArmy)
+            {
+                Console.WriteLine("Your commander is already in your army.");
+                Console.ReadKey(true);
+                Console.Clear();
+                return unit;
+            }
+            else if(unitIdentifier == "ivan")
+            {
+                commanderInArmy = true;
+            }
+
             for (int i = 0; i < unitList.Length; i++)
             {
                 if (unitIdentifier == unitList[i].name.ToLower())
@@ -549,6 +541,11 @@ namespace TurnBasedTest
         {
             string input = "None";
 
+            if (unit.name == "Man")
+            {
+
+            }
+
             Console.Clear();
 
             DisplayUnitList();
@@ -558,6 +555,11 @@ namespace TurnBasedTest
             input = Console.ReadLine().ToLower();
             if(input == "remove")
             {
+                if(unit.name == "Ivan")
+                {
+                    commanderInArmy = false;
+                }
+
                 RemoveUnit(ref unit);
             }
             else
