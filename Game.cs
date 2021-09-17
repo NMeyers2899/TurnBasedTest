@@ -4,10 +4,19 @@ using System.Text;
 
 namespace TurnBasedTest
 { 
+    public struct Battle
+    {
+       public string name;
+       public bool isAvailable;
+    }
+
     public class Game
     {
         // Initalizes the player.
         Player player = new Player();
+        Unit[] enemyArmy = new Unit[15];
+
+        Battle[] battleList;
 
         private bool gameOver = false;
 
@@ -52,6 +61,10 @@ namespace TurnBasedTest
             Unit shadowstepper = new Unit("Shadowstepper", 8, 10, 2, 3);
 
             unitList = new Unit[] { ivanas, soldier, ruffian, archer, cleric, shadowstepper };
+
+            Battle testBattle = new Battle { name = "Test Battle", isAvailable = true };
+
+            battleList = new Battle[] { testBattle };  
         }
 
 
@@ -80,6 +93,7 @@ namespace TurnBasedTest
                     DisplayStartMenu();
                     break;
                 case 1:
+                    BattleMenu();
                     break;
                 case 2:
                     DisplayUnitMenu();
@@ -295,11 +309,58 @@ namespace TurnBasedTest
         }
 
         /// <summary>
+        /// This will display the menu which allows you to access the different battles.
+        /// </summary>
+        private void BattleMenu()
+        {
+            for(int i = 0; i < player.PlayerArmy.Length; i++)
+            {
+                if(player.PlayerArmy[i] is Commander)
+                {
+                    break;
+                }
+
+                if (i == 14 && !(player.PlayerArmy[i] is Commander))
+                {
+                    Console.WriteLine("Your commander is not in your army.");
+                    return;
+                }
+            }
+
+            for(int i = 0; i < battleList.Length; i++)
+            {
+                if (battleList[i].isAvailable)
+                {
+                    Console.WriteLine((i + 1) + ". " + battleList[i].name);
+                }
+            }
+
+            Console.WriteLine((battleList.Length + 1) + ". Go Back");
+
+            string input = Console.ReadLine().ToLower();
+        }
+
+        /// <summary>
+        /// This method will allow two armies to face off against each other.
+        /// </summary>
+        private void Battle()
+        {
+
+        }
+
+        /// <summary>
         /// A battle to meant to test different things in combat.
         /// </summary>
         private void TestBattle()
         {
-            Console.WriteLine("Welcome to the Test Battle");
+            Unit architect = new Commander("The Architect", 20, 15, 5, 0);
+
+            Console.WriteLine("Welcome to your first battle.");
+            enemyArmy[0] = unitList[1];
+            enemyArmy[2] = unitList[1];
+            enemyArmy[4] = unitList[1];
+            enemyArmy[7] = architect;
+
         }
     }
 }

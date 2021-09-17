@@ -18,14 +18,9 @@ namespace TurnBasedTest
             _isInArmy = false;
         }
 
-        public Commander(string name, float maxHealth, float attack, float defense, int deployCost)
+        public Commander(string name, float maxHealth, float attack, float defense, int deployCost) :
+            base(name, maxHealth, attack, defense, deployCost)
         {
-            _name = name;
-            _maxHealth = maxHealth;
-            _health = maxHealth;
-            _attackPower = attack;
-            _defensePower = defense;
-            _deployCost = deployCost;
             _isInArmy = false;
         }
 

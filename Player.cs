@@ -7,7 +7,7 @@ namespace TurnBasedTest
     public class Player
     {
         private int _playerDeploy;
-        private Unit[] _playerArmy = new Unit[15];
+        private Unit[] _playerArmy;
 
         public int PlayerDeploy
         {
@@ -22,6 +22,8 @@ namespace TurnBasedTest
         public Player()
         {
             _playerDeploy = 16;
+
+            _playerArmy = new Unit[15];
 
             for(int i = 0; i < _playerArmy.Length; i++)
             {
