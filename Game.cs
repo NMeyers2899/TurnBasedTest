@@ -84,6 +84,12 @@ namespace TurnBasedTest
                 case 2:
                     DisplayUnitMenu();
                     break;
+                case 3:
+                    ChangeUnit();
+                    break;
+                case 4:
+                    DisplayUnitStats();
+                    break;
             }
         }
 
@@ -165,9 +171,10 @@ namespace TurnBasedTest
             switch (choice)
             {
                 case 1:
+                    currentScene = 3;
                     break;
                 case 2:
-                    DisplayUnitStats();
+                    currentScene = 4;
                     break;
                 case 3:
                     currentScene = 0;
@@ -180,7 +187,73 @@ namespace TurnBasedTest
         /// </summary>
         private void ChangeUnit()
         {
+            int choice = 0;
 
+            for(int i = 0; i < player.PlayerArmy.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + player.PlayerArmy[i].Name);
+            }
+
+            Console.WriteLine("16. Go Back");
+
+            Console.WriteLine("Which position would you like to change?");
+
+            string input = Console.ReadLine();
+
+            if(!int.TryParse(input, out choice))
+            {
+                Console.WriteLine("Invalid Input");
+                Console.ReadKey(true);
+                Console.Clear();
+                currentScene = 2;
+                return;
+            }
+
+            if(choice > 16 || choice <= 0)
+            {
+                Console.WriteLine("Invalid Input");
+                Console.ReadKey(true);
+                Console.Clear();
+                currentScene = 2;
+                return;
+            }
+
+            if(choice == 16)
+            {
+                currentScene = 2;
+                return;
+            }
+
+            Console.Clear();
+
+            DisplayUnitList();
+            Console.WriteLine("Remove \n");
+            Console.WriteLine("What do you wish to do to the position?");
+
+            input = Console.ReadLine().ToLower();
+
+            if (input == "remove")
+            {
+                player.RemoveUnit(choice - 1);
+                currentScene = 2;
+                return;
+            }
+
+            for (int i = 0; i < unitList.Length; i++)
+            {
+                if (input == unitList[i].Name.ToLower())
+                {
+                    player.PlayerArmy[choice - 1] = unitList[i];
+
+                    currentScene = 2;
+                    return;
+                }
+            }
+
+            Console.WriteLine("Invalid Input");
+            Console.ReadKey(true);
+
+            currentScene = 2;
         }
 
         /// <summary>
@@ -204,6 +277,8 @@ namespace TurnBasedTest
                     Console.Clear();
                 }
             }
+
+            currentScene = 2;
         }
 
         /// <summary>

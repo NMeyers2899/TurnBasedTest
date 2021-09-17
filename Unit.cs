@@ -86,5 +86,12 @@ namespace TurnBasedTest
         {
             return target.TakeDamage(AttackPower);
         }
+
+        public virtual Unit Target()
+        {
+            Unit unit = new Unit();
+
+            return unit;
+        }
     }
 }
