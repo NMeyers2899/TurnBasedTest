@@ -6,12 +6,12 @@ namespace TurnBasedTest
 {
     public class Unit
     {
-        private string _name;
-        private float _maxHealth;
-        private float _health;
-        private float _attackPower;
-        private float _defensePower;
-        private int _deployCost;
+        protected string _name;
+        protected float _maxHealth;
+        protected float _health;
+        protected float _attackPower;
+        protected float _defensePower;
+        protected int _deployCost;
 
         public string Name
         {

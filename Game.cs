@@ -33,8 +33,8 @@ namespace TurnBasedTest
         /// </summary>
         private void Start()
         {
-            // Initializes the stats for Ivan.
-            Unit ivan = new Unit("Ivan", 25, 10, 5, 0);
+            // Initializes the stats for Ivanas
+            Unit ivanas = new Commander("Ivanas", 25, 10, 5, 0);
 
             // Initalizes the stats for a soldier.
             Unit soldier = new Unit("Soldier", 10, 8, 3, 2);
@@ -51,7 +51,7 @@ namespace TurnBasedTest
             // Initalizes the stats for an assassin.
             Unit shadowstepper = new Unit("Shadowstepper", 8, 10, 2, 3);
 
-            unitList = new Unit[] { ivan, soldier, ruffian, archer, cleric, shadowstepper };
+            unitList = new Unit[] { ivanas, soldier, ruffian, archer, cleric, shadowstepper };
         }
 
 
@@ -189,12 +189,14 @@ namespace TurnBasedTest
         {
             int choice = 0;
 
+            Console.WriteLine("Current Deploy: " + player.PlayerDeploy + "\n");
+
             for(int i = 0; i < player.PlayerArmy.Length; i++)
             {
                 Console.WriteLine((i + 1) + ". " + player.PlayerArmy[i].Name);
             }
 
-            Console.WriteLine("16. Go Back");
+            Console.WriteLine("\n16. Go Back\n");
 
             Console.WriteLine("Which position would you like to change?");
 
@@ -243,7 +245,7 @@ namespace TurnBasedTest
             {
                 if (input == unitList[i].Name.ToLower())
                 {
-                    player.PlayerArmy[choice - 1] = unitList[i];
+                    player.AddUnit(unitList[i], choice - 1);
 
                     currentScene = 2;
                     return;
@@ -290,6 +292,14 @@ namespace TurnBasedTest
             {
                 Console.WriteLine(unitName.Name);
             }
+        }
+
+        /// <summary>
+        /// A battle to meant to test different things in combat.
+        /// </summary>
+        private void TestBattle()
+        {
+            Console.WriteLine("Welcome to the Test Battle");
         }
     }
 }
