@@ -87,7 +87,7 @@ namespace TurnBasedTest
             return target.TakeDamage(AttackPower);
         }
 
-        public virtual Unit Target(Unit[] targetSquad)
+        public virtual Unit Target(int currentPosition, Unit[] targetSquad)
         {
             Unit unit = new Unit();
 

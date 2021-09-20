@@ -33,5 +33,21 @@ namespace TurnBasedTest
         {
             _isInArmy = false;
         }
+
+        public override Unit Target(int currentPosition, Unit[] targetSquad)
+        {
+            Unit unit = new Unit();
+
+            int targetedPosition = currentPosition;
+
+            bool targetFound = false;
+
+            if (targetSquad[targetedPosition].Health > 0)
+            {
+                Attack(targetSquad[targetedPosition]);
+            }
+
+            return unit;
+        }
     }
 }

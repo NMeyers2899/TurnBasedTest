@@ -45,10 +45,10 @@ namespace TurnBasedTest
             // Initializes the stats for Ivanas
             Unit ivanas = new Commander("Ivanas", 25, 10, 5, 0);
 
-            // Initalizes the stats for a soldier.
-            Unit soldier = new Unit("Soldier", 10, 8, 3, 2);
+            // Initalizes the soldier unit.
+            Unit soldier = new Soldier();
 
-            // Initializes the stats for a ruffian.
+            // Initializes the ruffian unit.
             Unit ruffian = new Unit("Ruffian", 15, 12, 2, 2);
 
             // Initalizes the stats for an archer.
@@ -360,6 +360,13 @@ namespace TurnBasedTest
         /// </summary>
         private void Fight(Unit[] squad1, Unit[] squad2)
         {
+            Unit allyCommander;
+            Unit enemyCommander;
+
+            for(int i = 0; i < squad1.Length; i++)
+            {
+
+            }
             for(int i = 0; i < squad1.Length; i++)
             {
                 Unit currentUnit = squad1[i];
