@@ -365,9 +365,22 @@ namespace TurnBasedTest
 
             for(int i = 0; i < squad1.Length; i++)
             {
-
+                if(squad1[i] is Commander)
+                {
+                    allyCommander = squad1[i];
+                }
             }
-            for(int i = 0; i < squad1.Length; i++)
+
+            for (int i = 0; i < squad2.Length; i++)
+            {
+                if (squad1[i] is Commander)
+                {
+                    enemyCommander = squad2[i];
+                }
+            }
+
+
+            for (int i = 0; i < squad1.Length; i++)
             {
                 Unit currentUnit = squad1[i];
                 if(!(currentUnit.Name == "None"))
