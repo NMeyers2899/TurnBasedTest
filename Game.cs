@@ -14,7 +14,7 @@ namespace TurnBasedTest
     {
         // Initalizes the player.
         Player player = new Player();
-        Unit[] enemyArmy = new Unit[15];
+        Player enemyArmy = new Player();
 
         Battle[] battleList;
 
@@ -105,6 +105,7 @@ namespace TurnBasedTest
                     DisplayUnitStats();
                     break;
             }
+        
         }
 
         /// <summary>
@@ -313,6 +314,8 @@ namespace TurnBasedTest
         /// </summary>
         private void BattleMenu()
         {
+            int listLength = 0;
+
             for(int i = 0; i < player.PlayerArmy.Length; i++)
             {
                 if(player.PlayerArmy[i] is Commander)
@@ -323,6 +326,8 @@ namespace TurnBasedTest
                 if (i == 14 && !(player.PlayerArmy[i] is Commander))
                 {
                     Console.WriteLine("Your commander is not in your army.");
+                    Console.ReadKey(true);
+                    currentScene = 0;
                     return;
                 }
             }
@@ -332,20 +337,37 @@ namespace TurnBasedTest
                 if (battleList[i].isAvailable)
                 {
                     Console.WriteLine((i + 1) + ". " + battleList[i].name);
+                    listLength++;
                 }
             }
 
-            Console.WriteLine((battleList.Length + 1) + ". Go Back");
+            Console.WriteLine((listLength + 1) + ". Go Back");
 
             string input = Console.ReadLine().ToLower();
+
+            switch (input)
+            {
+                case "1":
+                    break;
+                default:
+                    currentScene = 0;
+                    break;
+            }
         }
 
         /// <summary>
         /// This method will allow two armies to face off against each other.
         /// </summary>
-        private void Battle()
+        private void Fight(Unit[] squad1, Unit[] squad2)
         {
-
+            for(int i = 0; i < squad1.Length; i++)
+            {
+                Unit currentUnit = squad1[i];
+                if(!(currentUnit.Name == "None"))
+                {
+                    Unit target = currentUnit.Target(i, squad2);
+                }
+            }
         }
 
         /// <summary>
@@ -356,10 +378,11 @@ namespace TurnBasedTest
             Unit architect = new Commander("The Architect", 20, 15, 5, 0);
 
             Console.WriteLine("Welcome to your first battle.");
-            enemyArmy[0] = unitList[1];
-            enemyArmy[2] = unitList[1];
-            enemyArmy[4] = unitList[1];
-            enemyArmy[7] = architect;
+            Console.WriteLine("We will keep it simple for now.");
+            enemyArmy.AddUnit(unitList[1], 0);
+            enemyArmy.AddUnit(unitList[1], 2);
+            enemyArmy.AddUnit(unitList[1], 4);
+            enemyArmy.AddUnit(architect, 7);
 
         }
     }

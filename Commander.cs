@@ -13,7 +13,7 @@ namespace TurnBasedTest
             get { return _isInArmy; }
         }
 
-        public Commander()
+        public Commander() : base("Ivanas", 25, 10, 6, 0)
         {
             _isInArmy = false;
         }
