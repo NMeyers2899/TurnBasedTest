@@ -74,6 +74,9 @@ namespace TurnBasedTest
 
             _health -= damageTaken;
 
+            Console.WriteLine(damageTaken + " damage was taken by " + this.Name + "!");
+            Console.ReadKey(true);
+
             return damageTaken;
         }
 

@@ -102,7 +102,7 @@ namespace TurnBasedTest
                     ChangeUnit();
                     break;
                 case 4:
-                    DisplayUnitStats();
+                    DisplayUnitStats(player);
                     break;
             }
         
@@ -276,16 +276,16 @@ namespace TurnBasedTest
         /// <summary>
         /// Displays the units stats in a squad.
         /// </summary>
-        private void DisplayUnitStats()
+        private void DisplayUnitStats(Player squad)
         {
             Console.Clear();
 
-            for(int i = 0; i < player.PlayerArmy.Length ; i++)
+            for(int i = 0; i < squad.PlayerArmy.Length ; i++)
             {
-                Console.WriteLine("Name: " + player.PlayerArmy[i].Name);
-                Console.WriteLine("Health: " + player.PlayerArmy[i].Health);
-                Console.WriteLine("Attack: " + player.PlayerArmy[i].AttackPower);
-                Console.WriteLine("Defense: " + player.PlayerArmy[i].DefensePower);
+                Console.WriteLine("Name: " + squad.PlayerArmy[i].Name);
+                Console.WriteLine("Health: " + squad.PlayerArmy[i].Health);
+                Console.WriteLine("Attack: " + squad.PlayerArmy[i].AttackPower);
+                Console.WriteLine("Defense: " + squad.PlayerArmy[i].DefensePower);
                 Console.WriteLine();
 
                 if(i == 4 || i == 9 || i == 14)
@@ -294,8 +294,6 @@ namespace TurnBasedTest
                     Console.Clear();
                 }
             }
-
-            currentScene = 2;
         }
 
         /// <summary>
@@ -348,6 +346,7 @@ namespace TurnBasedTest
             switch (input)
             {
                 case "1":
+                    TestBattle();
                     break;
                 default:
                     currentScene = 0;
@@ -360,32 +359,19 @@ namespace TurnBasedTest
         /// </summary>
         private void Fight(Unit[] squad1, Unit[] squad2)
         {
-            Unit allyCommander;
-            Unit enemyCommander;
+            int allyCommanderPosition = player.FindCommander(squad1);
+            int enemyCommanderPosition = enemyArmy.FindCommander(squad2);
 
-            for(int i = 0; i < squad1.Length; i++)
+            while(squad1[allyCommanderPosition].Health > 0 && squad2[enemyCommanderPosition].Health > 0)
             {
-                if(squad1[i] is Commander)
+                for (int i = 0; i < squad1.Length; i++)
                 {
-                    allyCommander = squad1[i];
-                }
-            }
-
-            for (int i = 0; i < squad2.Length; i++)
-            {
-                if (squad1[i] is Commander)
-                {
-                    enemyCommander = squad2[i];
-                }
-            }
-
-
-            for (int i = 0; i < squad1.Length; i++)
-            {
-                Unit currentUnit = squad1[i];
-                if(!(currentUnit.Name == "None"))
-                {
-                    Unit target = currentUnit.Target(i, squad2);
+                    Unit currentUnit = squad1[i];
+                    if (!(currentUnit.Health > 0))
+                    {
+                        Unit target = currentUnit.Target(i, squad2);
+                        currentUnit.Attack(target);
+                    }
                 }
             }
         }
@@ -397,13 +383,24 @@ namespace TurnBasedTest
         {
             Unit architect = new Commander("The Architect", 20, 15, 5, 0);
 
+            Console.Clear();
             Console.WriteLine("Welcome to your first battle.");
             Console.WriteLine("We will keep it simple for now.");
+            Console.ReadKey(true);
+
             enemyArmy.AddUnit(unitList[1], 0);
             enemyArmy.AddUnit(unitList[1], 2);
             enemyArmy.AddUnit(unitList[1], 4);
             enemyArmy.AddUnit(architect, 7);
+            DisplayUnitStats(enemyArmy);
 
+            
+            Console.ReadKey(true);
+            Console.Clear();
+
+            Fight(player.PlayerArmy, enemyArmy.PlayerArmy);
+
+            currentScene = 1;
         }
     }
 }

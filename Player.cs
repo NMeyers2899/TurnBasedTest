@@ -107,5 +107,21 @@ namespace TurnBasedTest
 
             _playerArmy[position] = new Unit();
         }
+
+        public int FindCommander(Unit[] squad)
+        {
+            int commanderPosition = 0;
+
+            for (int i = 0; i < squad.Length; i++)
+            {
+                if (squad[i] is Commander)
+                {
+                    commanderPosition = i;
+                    break;
+                }
+            }
+
+            return commanderPosition;
+        }
     }
 }
